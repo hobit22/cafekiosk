@@ -6,7 +6,7 @@ import sample.cafekiosk.unit.beverage.Latte;
 public class CafekioskRunner {
 
     public static void main(String[] args) {
-        Cafekiosk cafekiosk = new Cafekiosk();
+        CafeKiosk cafekiosk = new CafeKiosk();
         cafekiosk.add(new Americano());
         System.out.println(">>> 아메리카노 추가");
 

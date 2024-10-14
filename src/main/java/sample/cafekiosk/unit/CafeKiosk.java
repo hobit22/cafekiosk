@@ -7,14 +7,23 @@ import sample.cafekiosk.unit.order.Order;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Getter
-public class Cafekiosk {
+public class CafeKiosk {
 
     private final List<Beverage> beverages = new ArrayList<>();
 
     public void add(Beverage beverage) {
         beverages.add(beverage);
+    }
+
+    public void add(Beverage beverage, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+
+        IntStream.range(0, quantity).forEach(i -> add(beverage));
     }
 
     public void remove(Beverage beverage) {
