@@ -4,6 +4,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sample.cafekiosk.unit.beverage.Americano;
 import sample.cafekiosk.unit.beverage.Latte;
+import sample.cafekiosk.unit.order.Order;
+
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -102,6 +105,39 @@ class CafeKioskTest {
         cafekiosk.clear();
         assertThat(cafekiosk.getBeverages()).isEmpty();
 
+    }
+
+    @DisplayName("create Order")
+    @Test
+    void createOrder() {
+        // given
+        CafeKiosk cafekiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafekiosk.add(americano);
+
+        // when
+        Order order = cafekiosk.createOrder(LocalDateTime.of(2024, 10, 14, 12, 0));
+
+        // then
+        assertThat(order.getBeverages()).hasSize(1);
+        assertThat(order.getBeverages().get(0)).isEqualTo(americano);
+    }
+
+    @DisplayName("create order outside open time")
+    @Test
+    void createOrderOutsideOpenTime() {
+        // given
+        CafeKiosk cafekiosk = new CafeKiosk();
+        Americano americano = new Americano();
+
+        cafekiosk.add(americano);
+        LocalDateTime time = LocalDateTime.of(2024, 10, 14, 0, 0);
+
+        // when
+        // then
+        assertThatThrownBy(()->cafekiosk.createOrder(time))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 
 }
