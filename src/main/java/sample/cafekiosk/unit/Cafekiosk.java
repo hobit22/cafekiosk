@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class Cafekiosk {
 
-    private final List<Beverage> beverages = new ArrayList<Beverage>();
+    private final List<Beverage> beverages = new ArrayList<>();
 
     public void add(Beverage beverage) {
         beverages.add(beverage);
@@ -21,15 +21,16 @@ public class Cafekiosk {
         beverages.remove(beverage);
     }
 
-    public void removeAll() {
-        beverages.clear();
-    }
-
     public int calculateTotalPrice() {
         return beverages.stream().mapToInt(Beverage::getPrice).sum();
     }
 
     public Order createOrder() {
         return new Order(LocalDateTime.now(), beverages);
+    }
+
+    public void clear() {
+        beverages.clear();
+
     }
 }
