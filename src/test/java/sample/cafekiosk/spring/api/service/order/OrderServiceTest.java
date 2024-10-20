@@ -28,7 +28,7 @@ import static sample.cafekiosk.spring.domain.product.ProductType.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@Transactional
+//@Transactional
 class OrderServiceTest {
 
     @Autowired
@@ -42,12 +42,13 @@ class OrderServiceTest {
     @Autowired
     StockRepository stockRepository;
 
-//    @AfterEach
-//    void tearDown() {
-//        orderProductRepository.deleteAllInBatch();
-//        productRepository.deleteAllInBatch();
-//        orderRepository.deleteAllInBatch();
-//    }
+    @AfterEach
+    void tearDown() {
+        orderProductRepository.deleteAllInBatch();
+        productRepository.deleteAllInBatch();
+        orderRepository.deleteAllInBatch();
+        stockRepository.deleteAllInBatch();
+    }
 
     @DisplayName("주문번호 리스트를 받아 주문을 생성한다.")
     @Test
